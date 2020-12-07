@@ -9,9 +9,9 @@
             <?php
             require_once 'config/configDB.php';
 
-            if (isset($_SESSION['user_login'])) {
+            if (isset($_COOKIE["login"])) {
 
-                $id = $_SESSION['user_login'];
+                $id = $_COOKIE["login"];
 
                 $select_stmt = $db->prepare("SELECT * FROM accounts WHERE account_id=:uid");
                 $select_stmt->execute(array(":uid" => $id));
@@ -29,10 +29,10 @@
                 <a href="kontakt.php" class="nav-item nav-link "><?php echo $lang['kontakt'];  ?></a>
             </div>
             <div class="navbar-nav ml-auto">
-                <?php if (!isset($_SESSION['user_login'])) { ?>
+                <?php if (!isset($_COOKIE["login"])) { ?>
                     <a href="login.php" class="nav-item nav-link "><?php echo $lang['login']; ?></a>
                 <?php } ?>
-                <?php if (isset($_SESSION['user_login'])) { ?>
+                <?php if (isset($_COOKIE["login"])) { ?>
                     <div class="btn-group dropleft">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php echo $lang['accountDetails'];  ?>

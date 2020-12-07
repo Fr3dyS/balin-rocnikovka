@@ -3,7 +3,7 @@ include('config/lang.php');
 
 require 'config/configDB.php';
 
-if (isset($_SESSION["user_login"]))    //check condition user login not direct back to index.php page
+if (isset($_COOKIE["login"]))    //check condition user login not direct back to index.php page
 {
     header("location: index.php");
 }
@@ -32,9 +32,9 @@ if (isset($_REQUEST['btn_login']))    //button name is "btn_login"
                 {
                     if (password_verify($password, $row["account_password"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
                     {
-                        $_SESSION["user_login"] = $row["account_id"];    //session name is "user_login"
-                        $loginMsg = "Successfully Login...";        //user login success message
-                        header("refresh:2; index.php");            //refresh 2 second after redirect to "welcome.php" page
+                        setcookie("login", $row["account_id"], time() + 3600);
+                        $loginMsg = $lang['LoginSuccessfully'];        
+                        header("refresh:2; index.php");          
                     } else {
                         $errorMsg[] = "wrong password";
                     }
@@ -106,7 +106,7 @@ if (isset($_REQUEST['btn_login']))    //button name is "btn_login"
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9 m-t-15">
                 <label><?php echo $lang['expiration']; ?></label>
-                <input type="checkbox" name="expiration" class="btn" >
+                <input type="checkbox" name="expiration" class="btn">
             </div>
         </div>
 

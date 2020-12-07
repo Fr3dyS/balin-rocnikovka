@@ -3,6 +3,7 @@ include('config/lang.php');
 
 require 'config/configDB.php';
 
+// TEST 
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
 }
@@ -64,7 +65,7 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
                     ':ip' => $ip_address
                 ))) {
 
-                    $registerMsg = "Register Successfully..... Please Click On Login Account Link"; //execute query success message
+                    $registerMsg = $lang['RegistrationSuccessfully'];
                 }
             }
         } catch (PDOException $e) {
@@ -109,40 +110,40 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
     ?>
     <form method="post">
         <div>
-            <label>Přihlašovací email</label>
+            <label><?php echo $lang['prihlasovaciEmail']?></label>
             <input type="text" name="email">
         </div>
         <div>
-            <label>Heslo</label>
+            <label><?php echo $lang['password']?></label>
             <input type="password" name="password">
         </div>
         <div>
-            <label>potvrzení hesla</label>
+            <label><?php echo $lang['repeatPassword']?></label>
             <input type="password" name="spassword">
         </div>
         <div>
-            <label>telefon</label>
+            <label><?php echo $lang['Phone']?></label>
             <input id="phone" name="telefon" class="no-arrow" value="" type="number">
         </div>
-        <h1>Fakturační údaje</h1>
+        <h1><?php echo $lang['fakturacniUdaje']?></h1>
         <div>
-            <label>Jméno a příjmení (název firmy)</label>
+            <label><?php echo $lang['fullName']?></label>
             <input type="text" name="fullname">
         </div>
         <div>
-            <label>Ulice</label>
+            <label><?php echo $lang['ulice']?></label>
             <input type="text" name="ulice">
         </div>
 
         <div>
-            <label>Město</label>
+            <label><?php echo $lang['Mesto']?></label>
             <input type="text" name="mesto">
         </div>
         <div>
-            <label>PSČ</label>
+            <label><?php echo $lang['PSC']?></label>
             <input type="text" name="psc">
         </div>
-        <button type="submit" class="btn btn-primary" name="btn_register">Sign in</button>
+        <button type="submit" class="btn btn-primary" name="btn_register"><?php echo $lang['login']?></button>
     </form>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -1,8 +1,6 @@
 <?php
-session_start();
-
+setcookie("login", "", time()-3600);
 header("location:index.php");
 
-session_destroy();
 
 ?>
