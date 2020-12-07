@@ -40,6 +40,7 @@ $lang = array(
     "zmenaMesto" => "Change city",
     "zmenaPsc" => "Change PSČ",
     "save" => "save",
-    "account_reg_date" => "date of registration"
-
+    "account_reg_date" => "date of registration",
+    "langchoice" => "Change language",
+    "expiration" => "Remember me!(7 days)"
 );

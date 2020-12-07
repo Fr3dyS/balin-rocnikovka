@@ -37,5 +37,7 @@ $lang = array(
     "zmenaMesto" => "Změna města",
     "zmenaPsc" => "Změna Poštovního směrovacího čísla",
     "save" => "Uložit",
-    "account_reg_date" => "datum registrace"
+    "account_reg_date" => "datum registrace",
+    "langchoice" => "změna jazyka",
+    "expiration" => "Pamatovat si mě!(7 dnů)"
 );

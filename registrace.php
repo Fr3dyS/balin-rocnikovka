@@ -33,11 +33,10 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errorMsg[] = "Please enter a valid email address";    //check proper email format 
     } else if (empty($password)) {
-        $errorMsg[] = "Please enter password";   
-    }else if($spassword !== $password){
+        $errorMsg[] = "Please enter password";
+    } else if ($spassword !== $password) {
         $errorMsg[] = "Hesla nejsou same";
-    }
-     else {
+    } else {
         try {
             $select_stmt = $db->prepare("SELECT account_mail FROM accounts 
             WHERE account_mail=:email");
@@ -145,6 +144,10 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
         </div>
         <button type="submit" class="btn btn-primary" name="btn_register">Sign in</button>
     </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

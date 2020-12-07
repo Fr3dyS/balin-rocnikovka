@@ -41,11 +41,27 @@
                             <a class="dropdown-item" href="account.php"><?php echo $lang['account']; ?></a>
                             <a class="dropdown-item" href="administration/index.php"><?php echo $lang['administrativa']; ?></a>
                             <a class="dropdown-item" href="logout.php"><?php echo $lang['logout']; ?></a>
-                            
+
                         </div>
                     </div>
 
                 <?php } ?>
+            </div>
+            <?php
+            /***
+             * lang vyber
+             */
+            ?>
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $lang['langchoice']?>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="config/lang.php?lang=cs">cz</a>
+                        <a class="dropdown-item" href="config/lang.php?lang=en">en</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
