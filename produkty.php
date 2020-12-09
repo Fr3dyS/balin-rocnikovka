@@ -40,9 +40,9 @@ require 'config/configDB.php';
                 <div class="col s12 m4">
                     <div class="card hoverable animated slideInUp wow">
                         <div class="card-image">
-                            <a href="product.php?id=<?= $id_product; ?>">
+                            <a href="productDetails.php?id=<?= $id_product; ?>">
                             <span class="card-title grey-text"><?= $name_product; ?></span>
-                            <a href="product.php?id=<?= $id_product; ?>" class="btn-floating halfway-fab waves-effect waves-light right"><i class="material-icons">add</i></a>
+                            <a href="productDetails.php?id=<?= $id_product; ?>" class="btn-floating halfway-fab waves-effect waves-light right"><i class="material-icons">add</i></a>
                         </div>
                         <div class="card-action">
                             <div class="container-fluid">
