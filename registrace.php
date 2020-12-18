@@ -36,7 +36,7 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
     } else if (empty($password)) {
         $errorMsg[] = "Please enter password";
     } else if ($spassword !== $password) {
-        $errorMsg[] = "Hesla nejsou same";
+        $errorMsg[] = "Hesla nejsou stejna";
     } else {
         try {
             $select_stmt = $db->prepare("SELECT account_mail FROM accounts 

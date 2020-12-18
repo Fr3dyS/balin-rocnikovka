@@ -50,5 +50,6 @@ $lang = array(
     "langchoice" => "Change language",
     "expiration" => "Remember me!(7 days)",
     "RegistrationSuccessfully" => "Register Successfully..... Please Click On Login Account Link",
-    "LoginSuccessfully" => "Successfully Login..."
+    "LoginSuccessfully" => "Successfully Login...",
+    "kosik" => "Přidej do košíku"
 );

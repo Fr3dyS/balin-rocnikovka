@@ -44,5 +44,6 @@ $lang = array(
     "langchoice" => "změna jazyka",
     "expiration" => "Pamatovat si mě!(7 dnů)",
     "RegistrationSuccessfully" => "Registrace úspěšná..... Prosím klikni na přihlášení",
-    "LoginSuccessfully" => "Úspěšně přihlášen..."
+    "LoginSuccessfully" => "Úspěšně přihlášen...",
+    "kosik" => "Přidej do košíku"
 );

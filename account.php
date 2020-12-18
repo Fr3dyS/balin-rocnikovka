@@ -10,7 +10,7 @@ if (isset($_REQUEST['save'])) {
     $ulice = strip_tags($_REQUEST['account_ulice']);
     $mesto = strip_tags($_REQUEST['account_mesto']);
     $psc = strip_tags($_REQUEST['account_psc']);
-    $id = strip_tags($_SESSION['user_login']);
+    $id = strip_tags($_COOKIE['login']);
 
     try {
         $update_stmt = $db->prepare("UPDATE accounts SET account_name=:fullname, account_mail=:email, account_phone=:telefon, account_ulice=:ulice, account_mesto=:mesto, account_psc=:psc WHERE account_id=:id");
@@ -54,7 +54,7 @@ if (isset($_REQUEST['save'])) {
         </div>
     <?php
     }
-    if (isset($_SESSION['user_login'])) { ?>
+    if (isset($_COOKIE['login'])) { ?>
         <form method="post">
             <div>
                 <label><?php echo $lang['account_reg_date'] ?></label>
