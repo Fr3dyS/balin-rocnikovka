@@ -22,8 +22,47 @@ require 'config/configDB.php';
 </head>
 
 <body>
-    <?php include('pohledy/doplnky/header.php'); ?>
+    <?php
+    include('pohledy/doplnky/header.php');
+    ?>
     <h1><?php echo $lang['produkty']; ?></h1>
+
+<?php
+    if (isset($_SESSION["cart_products"]) && count($_SESSION["cart_products"]) > 0) {
+        echo '<div class="cart-view-table-front" id="view-cart">';
+        echo '<h3>Your Shopping Cart</h3>';
+        echo '<form method="post" action="cart_update.php">';
+        echo '<table width="100%"  cellpadding="6" cellspacing="0">';
+        echo '<tbody>';
+
+        $total = 0;
+        $b = 0;
+        foreach ($_SESSION["cart_products"] as $cart_itm) {
+            $product_name = $cart_itm["product_name"];
+            $product_qty = $cart_itm["product_qty"];
+            $product_price = $cart_itm["product_price"];
+            $product_code = $cart_itm["product_code"];
+            $bg_color = ($b++ % 2 == 1) ? 'odd' : 'even'; //zebra stripe
+            echo '<tr class="' . $bg_color . '">';
+            echo '<td>Qty <input type="text" size="2" maxlength="2" name="product_qty[' . $product_code . ']" value="' . $product_qty . '" /></td>';
+            echo '<td>' . $product_name . '</td>';
+            echo '<td><input type="checkbox" name="remove_code[]" value="' . $product_code . '" /> Remove</td>';
+            echo '</tr>';
+            $subtotal = ($product_price * $product_qty);
+            $total = ($total + $subtotal);
+        }
+        echo '<td colspan="4">';
+        echo '<button type="submit">Update</button><a href="view_cart.php" class="button">Checkout</a>';
+        echo '</td>';
+        echo '</tbody>';
+        echo '</table>';
+
+
+        echo '</form>';
+        echo '</div>';
+    }
+    ?>
+    
     <div class="row">
         <?php
 
@@ -31,26 +70,31 @@ require 'config/configDB.php';
         $stmt->execute();
         $datas = $stmt->fetchAll();
 
-        foreach($datas as $data){
+        foreach ($datas as $data) {
             $id_product = $data['kits_product_id'];
             $name_product = $data['kits_product_name'];
             $price_product = $data['kits_product_price'];
         ?>
 
-                <div class="col s12 m4">
-                        <div class="card-image">
-                            <a href="productDetails.php?id=<?= $id_product; ?>">
-                            <span class="card-title grey-text"><?= $name_product; ?></span>
-                            <a href="productDetails.php?id=<?= $id_product; ?>" class="btn-floating halfway-fab waves-effect waves-light right"><i class="material-icons"><?php echo $lang['kosik']; ?></i></a>
-                        </div>
-                        <div class="card-action">
-                            <div class="container-fluid">
-                                <h5 class="white-text"><?= $price_product; ?> CZ</h5>
-                            </div>
-                        </div>
+            <div class="col s12 m4">
+                <div class="card-image">
+                    <a href="productDetails.php?id=<?= $id_product; ?>">
+                        <span class="card-title grey-text"><?= $name_product; ?></span>
+                        <a href="productDetails.php?id=<?= $id_product; ?>" name="" class="btn-floating halfway-fab waves-effect waves-light right"><i class="material-icons"><?php echo $lang['kosik']; ?></i></a>
                 </div>
+                <label>
+                    <span>Quantity</span>
+                    <input type="text" size="2" maxlength="2" name="product_qty" value="1" />
+                </label>
+                <div class="card-action">
+                    <div class="container-fluid">
+                        <h5 class="white-text"><?= $price_product; ?> CZ</h5>
+                    </div>
+                </div>
+                <div><button type="submit" class="add_to_cart">Add</button></div>
+            </div>
         <?php } ?>
-    
+
         <script type="text/javascript" src="node_modules/mdb-ecommerce/js/jquery.min.js"></script>
         <script type="text/javascript" src="node_modules/mdb-ecommerce/js/popper.min.js"></script>
         <script type="text/javascript" src="node_modules/mdb-ecommerce/js/bootstrap.min.js"></script>

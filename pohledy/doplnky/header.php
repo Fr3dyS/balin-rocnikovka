@@ -1,3 +1,8 @@
+<script>
+    function changeLang() {
+        document.getElementById('form_lang').submit();
+    }
+</script>
 <div class="bs-example">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <a href="index.php" class="navbar-brand"><?php echo $lang['title']; ?></a>
@@ -19,7 +24,6 @@
                 $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
             }
 
-
             ?>
             <div class="navbar-nav">
                 <a href="index.php" class="nav-item nav-link "><?php echo $lang['uvod'];  ?></a>
@@ -29,6 +33,7 @@
                 <a href="kontakt.php" class="nav-item nav-link "><?php echo $lang['kontakt'];  ?></a>
             </div>
             <div class="navbar-nav ml-auto">
+                <a href="cart.php">košík</a>
                 <?php if (!isset($_COOKIE["login"])) { ?>
                     <a href="login.php" class="nav-item nav-link "><?php echo $lang['login']; ?></a>
                 <?php } ?>
@@ -47,22 +52,18 @@
 
                 <?php } ?>
             </div>
-            <?php
-            /***
-             * lang vyber
-             */
-            ?>
-            <div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $lang['langchoice']?>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="config/lang.php?lang=cs">cz</a>
-                        <a class="dropdown-item" href="config/lang.php?lang=en">en</a>
-                    </div>
-                </div>
-            </div>
+            <!-- Language -->
+            <form method='get' action='' id='form_lang'>
+                <?php echo $lang['vyberJazyk'];  ?>
+                <select name='lang' onchange='changeLang();'>
+                    <option value='en' <?php if (isset($_SESSION['lang']) && $_SESSION['lang'] == 'en') {
+                                            echo "selected";
+                                        } ?>> <?php echo $lang['EnglishChoose'];  ?></option>
+                    <option value='cs' <?php if (isset($_SESSION['lang']) && $_SESSION['lang'] == 'cs') {
+                                            echo "selected";
+                                        } ?>> <?php echo $lang['CestinaChoose'];  ?></option>
+                </select>
+            </form>
         </div>
     </nav>
 </div>

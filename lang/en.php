@@ -51,5 +51,9 @@ $lang = array(
     "expiration" => "Remember me!(7 days)",
     "RegistrationSuccessfully" => "Register Successfully..... Please Click On Login Account Link",
     "LoginSuccessfully" => "Successfully Login...",
-    "kosik" => "Přidej do košíku"
+    "kosik" => "Přidej do košíku",
+    "HaError" => "HaError",
+    "vyberJazyk" => "Choose language",
+    "EnglishChoose" => "Angličtina",
+    "CestinaChoose" => "Čeština"
 );
