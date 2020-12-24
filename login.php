@@ -33,7 +33,8 @@ if (isset($_REQUEST['btn_login']))    //button name is "btn_login"
                     if (password_verify($password, $row["account_password"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
                     {
                         setcookie("login", $row["account_id"], time() + 3600);
-                        $loginMsg = $lang['LoginSuccessfully'];        
+                        $loginMsg = $lang['LoginSuccessfully']; 
+                        $_SESSION['rank'] = $row['account_rank'];      
                         header("refresh:2; index.php");          
                     } else {
                         $errorMsg[] = "wrong password";
