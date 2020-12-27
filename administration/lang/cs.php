@@ -6,5 +6,8 @@ $lang = array(
     "Eshop" => "Eshop",
     "Kity" => "Kits",
     "test" => "try",
-    "Zpet" => "back "
+    "Zpet" => "back ",
+    "vyberJazyk" => "vyber jazyk",
+    "CestinaChoose" => "Čestina",
+    "EnglishChoose" => "English"
 );
