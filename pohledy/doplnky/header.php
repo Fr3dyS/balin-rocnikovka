@@ -44,7 +44,9 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="account.php"><?php echo $lang['account']; ?></a>
-                            <a class="dropdown-item" href="administration/index.php"><?php echo $lang['administrativa']; ?></a>
+                            <?php if ($_SESSION['rank'] == 3) {
+                            ?> <a class="dropdown-item" href="administration/index.php"><?php echo $lang['administrativa']; ?></a><?php
+                            } ?>
                             <a class="dropdown-item" href="logout.php"><?php echo $lang['logout']; ?></a>
 
                         </div>
