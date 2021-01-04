@@ -23,19 +23,16 @@ if (isset($_REQUEST['btn_login']))    //button name is "btn_login"
     } else {
         try {
             $select_stmt = $db->prepare("SELECT * FROM accounts WHERE account_mail=:email"); //sql select query
-            $select_stmt->execute(array(':email' => $email));    //execute query with bind parameter
+            $select_stmt->execute(array(':email' => $email));
             $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($select_stmt->rowCount() > 0)    //check condition database record greater zero after continue
-            {
-                if ($email == $row["account_mail"]) //check condition user taypable "username or email" are both match from database "username or email" after continue
-                {
-                    if (password_verify($password, $row["account_password"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
-                    {
+            if ($select_stmt->rowCount() > 0) {
+                if ($email == $row["account_mail"]) {
+                    if (password_verify($password, $row["account_password"])) {
                         setcookie("login", $row["account_id"], time() + 3600);
-                        $loginMsg = $lang['LoginSuccessfully']; 
-                        $_SESSION['rank'] = $row['account_rank'];      
-                        header("refresh:2; index.php");          
+                        $loginMsg = $lang['LoginSuccessfully'];
+                        $_SESSION['rank'] = $row['account_rank'];
+                        header("refresh:2; index.php");
                     } else {
                         $errorMsg[] = "wrong password";
                     }
@@ -105,10 +102,7 @@ if (isset($_REQUEST['btn_login']))    //button name is "btn_login"
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9 m-t-15">
-                <label><?php echo $lang['expiration']; ?></label>
-                <input type="checkbox" name="expiration" class="btn">
-            </div>
+            <input type="checkbox" name="rememberme" value="1" />&nbsp;Remember Me
         </div>
 
         <div class="form-group">

@@ -1,118 +1,86 @@
 <?php
-include('config/lang.php');
-require 'config/configDB.php';
+
+
+require_once('config/configDB.php');
+require_once('config/lang.php');
+require_once('pohledy/classes/component.php');
+
+$mysqli = mysqli_connect("localhost", "root", "klobasakecup", "kits");
+
+if (isset($_POST['add'])) {
+    /// print_r($_POST['product_id']);
+    if (isset($_SESSION['cart'])) {
+
+        $item_array_id = array_column($_SESSION['cart'], "product_id");
+
+        if (in_array($_POST['product_id'], $item_array_id)) {
+            echo "<script>alert('Product is already added in the cart..!')</script>";
+            echo "<script>window.location = 'produkty.php'</script>";
+        } else {
+
+            $count = count($_SESSION['cart']);
+            $item_array = array(
+                'product_id' => $_POST['product_id']
+            );
+
+            $_SESSION['cart'][$count] = $item_array;
+        }
+    } else {
+
+        $item_array = array(
+            'product_id' => $_POST['product_id']
+        );
+
+        // Create new session variable
+        $_SESSION['cart'][0] = $item_array;
+        print_r($_SESSION['cart']);
+    }
+}
+
 
 ?>
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title><?php echo $lang['title']; ?></title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/product/">
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <link rel="stylesheet" href="node_modules/mdb-ecommerce/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/mdb-ecommerce/css/mdb.min.css">
-    <link rel="stylesheet" href="node_modules/mdb-ecommerce/css/mdb.ecommerce.min.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping Cart</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <?php
-    include('pohledy/doplnky/header.php');
-    ?>
-    <h1><?php echo $lang['produkty']; ?></h1>
-
-<?php
-    if (isset($_SESSION["cart_products"]) && count($_SESSION["cart_products"]) > 0) {
-        echo '<div class="cart-view-table-front" id="view-cart">';
-        echo '<h3>Your Shopping Cart</h3>';
-        echo '<form method="post" action="cart_update.php">';
-        echo '<table width="100%"  cellpadding="6" cellspacing="0">';
-        echo '<tbody>';
-
-        $total = 0;
-        $b = 0;
-        foreach ($_SESSION["cart_products"] as $cart_itm) {
-            $product_name = $cart_itm["product_name"];
-            $product_qty = $cart_itm["product_qty"];
-            $product_price = $cart_itm["product_price"];
-            $product_code = $cart_itm["product_code"];
-            $bg_color = ($b++ % 2 == 1) ? 'odd' : 'even'; //zebra stripe
-            echo '<tr class="' . $bg_color . '">';
-            echo '<td>Qty <input type="text" size="2" maxlength="2" name="product_qty[' . $product_code . ']" value="' . $product_qty . '" /></td>';
-            echo '<td>' . $product_name . '</td>';
-            echo '<td><input type="checkbox" name="remove_code[]" value="' . $product_code . '" /> Remove</td>';
-            echo '</tr>';
-            $subtotal = ($product_price * $product_qty);
-            $total = ($total + $subtotal);
-        }
-        echo '<td colspan="4">';
-        echo '<button type="submit">Update</button><a href="view_cart.php" class="button">Checkout</a>';
-        echo '</td>';
-        echo '</tbody>';
-        echo '</table>';
 
 
-        echo '</form>';
-        echo '</div>';
-    }
-    ?>
-    
-    <div class="row">
-        <?php
+    <?php require_once('pohledy/doplnky/header.php'); ?>
+    <div class="container">
+        <div class="row text-center py-5">
+            <?php
+            $sql = "SELECT * FROM `kits_products`";
+            $result = mysqli_query($mysqli, $sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                component($row['kits_product_name'], $row['kits_product_price'], $row['kits_product_img1'], $row['kits_product_id']);
+            }
+            ?>
+        </div>
+    </div>
 
-        $stmt = $db->prepare('SELECT * FROM kits_products');
-        $stmt->execute();
-        $datas = $stmt->fetchAll();
 
-        foreach ($datas as $data) {
-            $id_product = $data['kits_product_id'];
-            $name_product = $data['kits_product_name'];
-            $price_product = $data['kits_product_price'];
-        ?>
 
-            <div class="col s12 m4">
-                <div class="card-image">
-                    <a href="productDetails.php?id=<?= $id_product; ?>">
-                        <span class="card-title grey-text"><?= $name_product; ?></span>
-                        <a href="productDetails.php?id=<?= $id_product; ?>" name="" class="btn-floating halfway-fab waves-effect waves-light right"><i class="material-icons"><?php echo $lang['kosik']; ?></i></a>
-                </div>
-                <label>
-                    <span>Quantity</span>
-                    <input type="text" size="2" maxlength="2" name="product_qty" value="1" />
-                </label>
-                <div class="card-action">
-                    <div class="container-fluid">
-                        <h5 class="white-text"><?= $price_product; ?> CZ</h5>
-                    </div>
-                </div>
-                <div><button type="submit" class="add_to_cart">Add</button></div>
-            </div>
-        <?php } ?>
 
-        <script type="text/javascript" src="node_modules/mdb-ecommerce/js/jquery.min.js"></script>
-        <script type="text/javascript" src="node_modules/mdb-ecommerce/js/popper.min.js"></script>
-        <script type="text/javascript" src="node_modules/mdb-ecommerce/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.min.js"></script>
-        <script type="text/javascript" src="node_modules/mdb-ecommerce/js/mdb.ecommerce.min.js"></script>
-        <script type="text/javascript"></script>
-        <script src="./Product example for Bootstrap_files/bootstrap.min.js.stažený soubor"></script>
-        <script src="./Product example for Bootstrap_files/holder.min.js.stažený soubor"></script>
-        <script>
-            Holder.addTheme('thumb', {
-                bg: '#55595c',
-                fg: '#eceeef',
-                text: 'Thumbnail'
-            });
-        </script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
