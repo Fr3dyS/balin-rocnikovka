@@ -37,7 +37,7 @@
                 <div class="navbar-nav">
                     <a href="cart.php" class="nav-item nav-link active">
                         <h5 class="px-5 cart">
-                            <i class="fas fa-shopping-cart"></i> Cart
+                            <i class="fas fa-shopping-cart"></i> <?php echo $lang['Cart'];  ?>
                             <?php
 
                             if (isset($_SESSION['cart'])) {

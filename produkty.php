@@ -8,7 +8,7 @@ require_once('pohledy/classes/component.php');
 $mysqli = mysqli_connect("localhost", "root", "klobasakecup", "kits");
 
 if (isset($_POST['add'])) {
-    /// print_r($_POST['product_id']);
+    // print_r($_POST['product_id']);
     if (isset($_SESSION['cart'])) {
 
         $item_array_id = array_column($_SESSION['cart'], "product_id");
@@ -31,9 +31,7 @@ if (isset($_POST['add'])) {
             'product_id' => $_POST['product_id']
         );
 
-        // Create new session variable
         $_SESSION['cart'][0] = $item_array;
-        print_r($_SESSION['cart']);
     }
 }
 
@@ -56,6 +54,12 @@ if (isset($_POST['add'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,7 +72,40 @@ if (isset($_POST['add'])) {
             $sql = "SELECT * FROM `kits_products`";
             $result = mysqli_query($mysqli, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
-                component($row['kits_product_name'], $row['kits_product_price'], $row['kits_product_img1'], $row['kits_product_id']);
+                $productname = $row['kits_product_name'];
+                $productprice = $row['kits_product_price'];
+                $img = $row['kits_product_img'];
+                $productid = $row['kits_product_id'];
+            ?><div class="col-md-3 col-sm-6 my-3 my-md-0">
+                    <form action="produkty.php" method="post">
+                        <div class="card shadow">
+                            <div>
+                                <img src=administration\tmp\images\<?php echo $img; ?> alt="Image1" class="img-fluid card-img-top">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $productname; ?></h5>
+                                <h6>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </h6>
+                                <p class="card-text">
+                                    Some quick example text to build on the card.
+                                </p>
+                                <h5>
+                                    <small><s class="text-secondary">$519</s></small>
+                                    <span>$<?php echo $productprice; ?></span>
+                                </h5>
+
+                                <button type="submit" class="btn btn-warning my-3" name="add">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                                <input type='hidden' name='product_id' value='<?php echo $productid; ?>'>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php
             }
             ?>
         </div>

@@ -8,7 +8,7 @@ function component($productname, $productprice, $productimg, $productid)
                 <form action=\"produkty.php\" method=\"post\">
                     <div class=\"card shadow\">
                         <div>
-                            <img src=\"$productimg\" alt=\"Image1\" class=\"img-fluid card-img-top\">
+                            <img src=..\administration\tmp\images\"unknown.png\" alt=\"Image1\" class=\"img-fluid card-img-top\">
                         </div>
                         <div class=\"card-body\">
                             <h5 class=\"card-title\">$productname</h5>
@@ -51,14 +51,11 @@ function cartElement($productimg, $productname, $productprice, $productid)
                                 <h5 class=\"pt-2\">$productname</h5>
                                 <small class=\"text-secondary\">Seller: dailytuition</small>
                                 <h5 class=\"pt-2\">$$productprice</h5>
-                                <button type=\"submit\" class=\"btn btn-warning\">Save for Later</button>
                                 <button type=\"submit\" class=\"btn btn-danger mx-2\" name=\"remove\">Remove</button>
                             </div>
                             <div class=\"col-md-3 py-5\">
                                 <div>
-                                    <button type=\"button\" class=\"btn bg-light border rounded-circle\"><i class=\"fas fa-minus\"></i></button>
-                                    <input type=\"text\" value=\"1\" class=\"form-control w-25 d-inline\">
-                                    <button type=\"button\" class=\"btn bg-light border rounded-circle\"><i class=\"fas fa-plus\"></i></button>
+                                    <input type=\"number\" min=\"1\" value=\"1\" class=\"form-control w-25 d-inline\" onchange=\"updateInput(value)\">
                                 </div>
                             </div>
                         </div>
@@ -68,3 +65,117 @@ function cartElement($productimg, $productname, $productprice, $productid)
     ";
     echo  $element;
 }
+
+function selectDoprava($id, $nazev, $cena)
+{
+    $element = "
+
+    <table>
+        <tr>
+            <th>reakce</th>
+            <th>name</th>
+            <th>price</th>
+        </tr>
+        <tr>
+            <td><input type=\"radio\" name=\"options\" id=\"option1\" autocomplete=\"off\"></td>
+            <td>$nazev</td>
+            <td>$cena</td>
+        </tr>
+    </table>
+    ";
+
+    echo $element;
+}
+function selectPlatba($id, $nazev, $cena)
+{
+    $element = "
+    <table>
+        <tr>
+            <th>reakce</th>
+            <th>name</th>
+            <th>price</th>
+        </tr>
+        <tr>
+            <td><input type=\"radio\" name=\"options\" id=\"option1\" autocomplete=\"off\"></td>
+            <td>$nazev</td>
+            <td>$cena</td>
+        </tr>
+    </table>
+    ";
+
+    echo $element;
+}
+function cart3($name, $email)
+{
+    $element = "
+    <div>
+        <div>
+            <h1>$name</h1>
+            <h2>$email</h2>
+        </div>
+        <div>
+            <h1>Fakturační udaje</h1>
+            <button>CHANGE</button>
+        </div>
+    </div>
+    ";
+    echo $element;
+}
+function changeCart3($jmeno, $email, $phone, $republika, $ulice, $mesto, $psc)
+{
+    $element = "
+<form method=\"POST\">
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Jméno a Příjmení</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Jméno a příjmení\" value=\"$jmeno\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\" value=\"$email\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">phone</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Mobil\" value=\"$phone\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">republika</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Republika\" value=\"$republika\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">ulice</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Ulice\" value=\"$ulice\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">mesto</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Mesto\" value=\"$mesto\">
+        </div>
+    </div>
+    <div class=\"form-group row\">
+        <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">PSC</label>
+        <div class=\"col-sm-10\">
+            <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"PSC\" value=\"$psc\">
+        </div>
+    </div>
+</form>
+    ";
+
+    echo $element;
+}
+?>
+
+<script>
+    function updateInput(ish) {
+        document.getElementById("test").value = ish;
+    }
+</script>

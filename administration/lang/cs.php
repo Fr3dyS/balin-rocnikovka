@@ -9,5 +9,6 @@ $lang = array(
     "Zpet" => "back ",
     "vyberJazyk" => "vyber jazyk",
     "CestinaChoose" => "Čestina",
-    "EnglishChoose" => "English"
+    "EnglishChoose" => "English",
+    "produkty" => "Produkty"
 );
