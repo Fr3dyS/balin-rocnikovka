@@ -51,7 +51,8 @@ include('config/config.php');
             <th>mesto</th>
             <th>psc</th>
             <th>ip</th>
-            <th>akce</th>
+            <th>UPDATE</th>
+            <th>DELETE</th>
         </tr>
         <tr>
             <th><input type="text" name="" id=""></th>
@@ -84,7 +85,12 @@ include('config/config.php');
                 <td><?php echo $data['account_mesto']; ?></td>
                 <td><?php echo $data['account_psc']; ?></td>
                 <td><?php echo $data['account_ip']; ?></td>
-                <td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><i style="font-size:24px" class="fa">&#xf044;</i></button></td>
+                <td>
+                    <a href="accounts/delete.php?id=<?php echo $data['account_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
+                </td>
+                <td>
+                    <a href="update.php?id=<?php echo $data['account_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
+                </td>
             </tr>
             <div class="container">
                 <div class="modal fade" id="myModal" role="dialog">
@@ -114,7 +120,6 @@ include('config/config.php');
 
                     </div>
                 </div>
-                <td><?php echo $data['account_id']; ?></td>
             <?php } ?>
     </table>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

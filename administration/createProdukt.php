@@ -81,24 +81,24 @@ mysqli_select_db($conn, "kits");
         </div>
     </form>
     <?php
-    $category = $_POST['category'];
-    $brand = $_POST['brand'];
-    $date = $_POST['date'];
-    $name = $_POST['name'];
-    $desc = $_POST['desc'];
-    $price = $_POST['price'];
-    $status = $_POST['status'];
-
-
-    $file = $_FILES['image']['tmp_namee'];
-    $pimageName = $_FILES['image']['name'];
-    $pimage = mysqli_real_escape_string($conn, file_get_contents($_FILES["image"]["tmp_namee"]));
-
-
     if (isset($_POST['submit'])) {
+        $category = $_POST['category'];
+        $brand = $_POST['brand'];
+        $date = $_POST['date'];
+        $name = $_POST['name'];
+        $desc = $_POST['desc'];
+        $price = $_POST['price'];
+        $status = $_POST['status'];
+
+
+        $file = $_FILES['image']['tmp_namee'];
+        $pimageName = $_FILES['image']['name'];
+        $pimage = mysqli_real_escape_string($conn, file_get_contents($_FILES["image"]["tmp_namee"]));
+
+
         $upload_image = mysqli_real_escape_string($conn, $_FILES['image']['name']);
         $folder = "tmp/images/";
-        move_uploaded_file($_FILES["image"]["tmp_namee"], "$folder" . $_FILES["image"]["name"]);
+        move_uploaded_file($_FILES["image"]["tmp_namee "], "$folder" . $_FILES["image"]["name"]);
         $path = 'backend/' . $folder . $pimageName;
 
 
@@ -110,6 +110,7 @@ mysqli_select_db($conn, "kits");
 		 </script>" . mysqli_error($conn);
         } else {
             echo "<script type='text/javascript'> alert('Successfully Inserted the Product!')";
+            header('Location: produkty.php');
         }
     }
     ?>

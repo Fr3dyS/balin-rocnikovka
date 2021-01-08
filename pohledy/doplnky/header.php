@@ -23,7 +23,6 @@
 
                 $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
             }
-
             ?>
             <div class="navbar-nav">
                 <a href="index.php" class="nav-item nav-link "><?php echo $lang['uvod'];  ?></a>

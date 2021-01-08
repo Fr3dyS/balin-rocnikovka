@@ -55,6 +55,7 @@ include('config/config.php');
             <th>product img2</th>
             <th>product img3</th>
             <th>Odebrat</th>
+            <th>Upravit</th>
         </tr>
 
         <?php
@@ -81,7 +82,12 @@ include('config/config.php');
                 <td>
                     <? '<img src="data:image/jpeg;base64,' . base64_encode($data['kits_product_img3']) . '" style="width: 200px;">'?>
                 </td>
-                <td><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td>
+                    <a href="produkty/delete.php?id=<?php echo $data['kits_product_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
+                </td>
+                <td>
+                    <a href="produkty/update.php?id=<?php echo $data['kits_product_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
+                </td>
             </tr>
         <?php } ?>
     </table>
@@ -106,6 +112,7 @@ include('config/config.php');
         }
     </script>
     <?php
+
 
     if (isset($_POST['send'])) {
         echo $_GET['date'];
