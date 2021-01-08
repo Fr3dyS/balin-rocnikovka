@@ -5,6 +5,7 @@ $lang = array(
     "logout" => "logout",
     "forgotPassword" => "forgot password",
     "account" => "Account name",
+    "zajimavosti" => "zajimavosti",
     "repeatPassword" => "Repeat password",
     "registration" => "registration",
     "activateAccount" => "Account activation",

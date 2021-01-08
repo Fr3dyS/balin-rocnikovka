@@ -25,7 +25,7 @@
             }
             ?>
             <div class="navbar-nav">
-                <a href="index.php" class="nav-item nav-link "><?php echo $lang['uvod'];  ?></a>
+                <a href="zajimavosti.php" class="nav-item nav-link "><?php echo $lang['zajimavosti'];  ?></a>
                 <a href="cenik.php" class="nav-item nav-link "><?php echo $lang['cenik'];  ?></a>
                 <a href="aboutUs.php" class="nav-item nav-link "><?php echo $lang['oNas'];  ?></a>
                 <a href="produkty.php" class="nav-item nav-link "><?php echo $lang['produkty'];  ?></a>

@@ -3,6 +3,7 @@ $lang = array(
     "title" => "kity",
     "login" => "Přihlásit se",
     "logout" => "odhlaseni",
+    "zajimavosti" => "zajimavosti",
     "forgotPassword" => "forgot password",
     "accountName" => "Account name",
     "repeatPassword" => "Repeat password",
