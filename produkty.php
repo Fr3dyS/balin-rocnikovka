@@ -5,10 +5,9 @@ require_once('config/configDB.php');
 require_once('config/lang.php');
 require_once('pohledy/classes/component.php');
 
-$mysqli = mysqli_connect("localhost", "root", "klobasakecup", "kits");
 
-if (isset($_POST['add'])) {
-    // print_r($_POST['product_id']);
+
+if (isset($_POST['pridej'])) {
     if (isset($_SESSION['cart'])) {
 
         $item_array_id = array_column($_SESSION['cart'], "product_id");
@@ -46,13 +45,8 @@ if (isset($_POST['add'])) {
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shopping Cart</title>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
-
-    <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <link rel="stylesheet" href="style.css">
     <style>
         img {
@@ -63,43 +57,35 @@ if (isset($_POST['add'])) {
 </head>
 
 <body>
-
-
     <?php require_once('pohledy/doplnky/header.php'); ?>
     <div class="container">
         <div class="row text-center py-5">
             <?php
-            $sql = "SELECT * FROM `kits_products`";
-            $result = mysqli_query($mysqli, $sql);
-            while ($row = mysqli_fetch_assoc($result)) {
-                $productname = $row['kits_product_name'];
-                $productprice = $row['kits_product_price'];
-                $img = $row['kits_product_img'];
-                $productid = $row['kits_product_id'];
+            $stmt = $db->prepare("SELECT * FROM `kits_products`");
+            $stmt->execute();
+            $datas = $stmt->fetchAll();
+            foreach ($datas as $data) {
+                $productname = $data['kits_product_name'];
+                $productprice = $data['kits_product_price'];
+                $img = $data['kits_product_img'];
+                $productid = $data['kits_product_id'];
             ?><div class="col-md-3 col-sm-6 my-3 my-md-0">
                     <form action="produkty.php" method="post">
                         <div class="card shadow">
                             <div>
-                                <img src=administration\tmp\images\<?php echo $img; ?> alt="Image1" class="img-fluid card-img-top">
+                                <?php $img = $data['kits_product_img'];
+                                echo "<img src='administration/$img' height='50%' width='50%'>"; ?>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $productname; ?></h5>
-                                <h6>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </h6>
                                 <p class="card-text">
-                                    Some quick example text to build on the card.
+                                    <?php echo $data['kits_product_desc']; ?> <a href="produkty2.php?id=<?php echo $productid ?>">videt vice..</a>
                                 </p>
                                 <h5>
-                                    <small><s class="text-secondary">$519</s></small>
-                                    <span>$<?php echo $productprice; ?></span>
+                                    <span><?php echo $productprice; ?> kč</span>
                                 </h5>
 
-                                <button type="submit" class="btn btn-warning my-3" name="add">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                                <button type="submit" class="btn btn-warning my-3" name="pridej">Add to Cart <i class="fas fa-shopping-cart"></i></button>
                                 <input type='hidden' name='product_id' value='<?php echo $productid; ?>'>
                             </div>
                         </div>
@@ -110,9 +96,6 @@ if (isset($_POST['add'])) {
             ?>
         </div>
     </div>
-
-
-
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

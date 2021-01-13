@@ -17,6 +17,7 @@ $lang = array(
     "fakturacniUdaje" => "Fakturační údaje",
     "Phone" => "telefon",
     "uvod" => "uvod",
+    "republika" => "republika",
     "cenik" => "ceník",
     "kontakt" => "Kontakt",
     "oNas" => "o nás",

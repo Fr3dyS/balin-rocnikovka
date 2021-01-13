@@ -39,7 +39,7 @@ include('config/config.php');
     <?php include('doplnky/header.php');
     ?>
     <h1><?php echo $lang['produkty']; ?></h1>
-    <a href="createProdukt.php">Vytvořit produkt</a>
+    <a href="#form">Vytvořit produkt</a>
 
     <table>
         <tr>
@@ -52,8 +52,6 @@ include('config/config.php');
             <th>product price</th>
             <th>product status</th>
             <th>product img</th>
-            <th>product img2</th>
-            <th>product img3</th>
             <th>Odebrat</th>
             <th>Upravit</th>
         </tr>
@@ -73,15 +71,7 @@ include('config/config.php');
                 <td><?php echo $data['kits_product_desc']; ?></td>
                 <td><?php echo $data['kits_product_price']; ?></td>
                 <td><?php echo $data['kits_product_status']; ?></td>
-                <td>
-                    <? echo $data['kits_product_img'];?>
-                </td>
-                <td>
-                    <? '<img src="data:image/jpeg;base64,' . base64_encode($data['kits_product_img2']) . '" style="width: 200px;">'?>
-                </td>
-                <td>
-                    <? '<img src="data:image/jpeg;base64,' . base64_encode($data['kits_product_img3']) . '" style="width: 200px;">'?>
-                </td>
+                <td><?php echo $data['kits_product_img']; ?></td>
                 <td>
                     <a href="produkty/delete.php?id=<?php echo $data['kits_product_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
                 </td>
@@ -92,32 +82,66 @@ include('config/config.php');
         <?php } ?>
     </table>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript">
-        function selected_image() {
-            var image_name = $('#image').val();
-            if (image_name == '') {
-                alert("please select Image");
-                return false;
-            } else {
-                var extension = $('#image').val();
-                var p = extension.lastIndexOf(".");
-                extension = extension.slice(p + 1, extension.length).toLowerCase();
-                var ext = ["gif", "png", "jpeg", "jpg"];
-                if (!ext.includes(extension)) {
-                    alert('unapropriate file selection Please select image file.');
-                    $('#image').val('');
-                    return false;
-                }
-            }
-        }
-    </script>
-    <?php
 
 
-    if (isset($_POST['send'])) {
-        echo $_GET['date'];
-    }
-    ?>
+    <form method="POST" action="uploadIMG.php" id="form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Product id:</label>
+            <input type="text" class="form-control" name="id" id="recipient-name" placeholder="Auto increment" readonly>
+        </div>
+        <div class="form-group">
+            <?php
+            $stmt = $db->prepare("SELECT * FROM `kits_category`");
+            $stmt->execute();
+            $datas = $stmt->fetchAll(); ?>
+            <label for="recipient-name" class="col-form-label">category id:</label>
+            <select name="category" id="">
+                <?php foreach ($datas as $data) { ?>
+                    <option value="<?php echo $data['category_id']; ?>"><?php echo $data['category_title']; ?></option>
+                <?php  } ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <?php
+            $stmt = $db->prepare("SELECT * FROM `kits_brands`");
+            $stmt->execute();
+            $datas = $stmt->fetchAll();
+            ?>
+            <label for="recipient-name" class="col-form-label">brand id:</label>
+            <select name="brand" id="">
+                <?php foreach ($datas as $data) { ?>
+                    <option value="<?php echo $data['kits_brand_id']; ?>"><?php echo $data['kits_brand_title']; ?></option>
+                <?php  } ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product date:</label>
+            <input type="date" class="form-control" name="date" id="recipient-name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product name:</label>
+            <input type="text" class="form-control" name="name" id="recipient-name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product desc:</label>
+            <input type="text" class="form-control" name="desc" id="recipient-name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product price:</label>
+            <input type="text" class="form-control" name="price" id="recipient-name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product status:</label>
+            <input type="text" class="form-control" name="status" id="recipient-name">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">product img:</label>
+            <input type="file" name="image" />
+        </div>
+        <div class="form-group">
+            <input type="submit" name="submit">
+        </div>
+    </form>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

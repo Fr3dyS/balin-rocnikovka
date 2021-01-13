@@ -16,23 +16,23 @@ else {
     $ip_address = $_SERVER['REMOTE_ADDR'];
 }
 
-if (isset($_REQUEST['btn_register'])) //button name "btn_register"
-{
+if (isset($_REQUEST['btn_register'])) {
     $email        = strip_tags($_REQUEST['email']);
     $fullname = strip_tags($_REQUEST['fullname']);
     $password    = strip_tags($_REQUEST['password']);
     $spassword = strip_tags($_REQUEST['spassword']);
     $telefon = strip_tags($_REQUEST['telefon']);
+    $republika = strip_tags($_REQUEST['republika']);
     $ulice = strip_tags($_REQUEST['ulice']);
     $mesto = strip_tags($_REQUEST['mesto']);
     $psc = strip_tags($_REQUEST['psc']);
 
     if (empty($fullname)) {
-        $errorMsg[] = "Please enter username";    //check username textbox not empty 
+        $errorMsg[] = "Please enter username";
     } else if (empty($email)) {
-        $errorMsg[] = "Please enter email";    //check email textbox not empty 
+        $errorMsg[] = "Please enter email";
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errorMsg[] = "Please enter a valid email address";    //check proper email format 
+        $errorMsg[] = "Please enter a valid email address";
     } else if (empty($password)) {
         $errorMsg[] = "Please enter password";
     } else if ($spassword !== $password) {
@@ -42,23 +42,23 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
             $select_stmt = $db->prepare("SELECT account_mail FROM accounts 
             WHERE account_mail=:email");
 
-            $select_stmt->execute(array(':email' => $email)); //execute query 
+            $select_stmt->execute(array(':email' => $email));
             $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($row["account_mail"] == $email) {
-                $errorMsg[] = "Sorry email already exists";    //check condition email already exists 
-            } else if (!isset($errorMsg)) //check no "$errorMsg" show then continue
-            {
+                $errorMsg[] = "Sorry email already exists";
+            } else if (!isset($errorMsg)) {
                 $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-                $insert_stmt = $db->prepare("INSERT INTO accounts (account_name, account_password, account_mail, account_rank, account_reg_date, account_phone, account_ulice, account_mesto, account_psc, account_ip) VALUES
-                (:fullname,:password, :email,1 ,NOW(),:telefon, :ulice, :mesto, :psc, :ip)");
+                $insert_stmt = $db->prepare("INSERT INTO accounts (account_name, account_password, account_mail, account_rank, account_reg_date, account_phone, account_republika, account_ulice, account_mesto, account_psc, account_ip) VALUES
+                (:fullname,:password, :email,1 ,NOW(),:telefon, :republika, :ulice, :mesto, :psc, :ip)");
 
                 if ($insert_stmt->execute(array(
                     ':email' =>  $email,
                     ':fullname' => $fullname,
                     ':password' => $new_password,
-                    ':telefon'    => $telefon,
+                    ':telefon' => $telefon,
+                    ':republika' => $republika, 
                     ':ulice'    => $ulice,
                     ':mesto'    => $mesto,
                     ':psc'    => $psc,
@@ -110,40 +110,43 @@ if (isset($_REQUEST['btn_register'])) //button name "btn_register"
     ?>
     <form method="post">
         <div>
-            <label><?php echo $lang['prihlasovaciEmail']?></label>
+            <label><?php echo $lang['prihlasovaciEmail'] ?></label>
             <input type="text" name="email">
         </div>
         <div>
-            <label><?php echo $lang['password']?></label>
+            <label><?php echo $lang['password'] ?></label>
             <input type="password" name="password">
         </div>
         <div>
-            <label><?php echo $lang['repeatPassword']?></label>
+            <label><?php echo $lang['repeatPassword'] ?></label>
             <input type="password" name="spassword">
         </div>
         <div>
-            <label><?php echo $lang['Phone']?></label>
+            <label><?php echo $lang['Phone'] ?></label>
             <input id="phone" name="telefon" class="no-arrow" value="" type="number">
         </div>
-        <h1><?php echo $lang['fakturacniUdaje']?></h1>
+        <h1><?php echo $lang['fakturacniUdaje'] ?></h1>
         <div>
-            <label><?php echo $lang['fullName']?></label>
+            <label><?php echo $lang['fullName'] ?></label>
             <input type="text" name="fullname">
         </div>
         <div>
-            <label><?php echo $lang['ulice']?></label>
+            <label><?php echo $lang['republika'] ?></label>
+            <input type="text" name="republika">
+        </div>
+        <div>
+            <label><?php echo $lang['ulice'] ?></label>
             <input type="text" name="ulice">
         </div>
-
         <div>
-            <label><?php echo $lang['Mesto']?></label>
+            <label><?php echo $lang['Mesto'] ?></label>
             <input type="text" name="mesto">
         </div>
         <div>
-            <label><?php echo $lang['PSC']?></label>
+            <label><?php echo $lang['PSC'] ?></label>
             <input type="text" name="psc">
         </div>
-        <button type="submit" class="btn btn-primary" name="btn_register"><?php echo $lang['login']?></button>
+        <button type="submit" class="btn btn-primary" name="btn_register"><?php echo $lang['login'] ?></button>
     </form>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

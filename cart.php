@@ -62,25 +62,51 @@ if (isset($_POST['remove'])) {
                                 foreach ($product_id as $id) {
                                     if ($row['kits_product_id'] == $id) {
                     ?>
-                                        <form action="cart.php?action=remove&id=<?php echo $row['kits_product_id']; ?>" method="post" class="cart-items">
-                                            <div class="border rounded">
-                                                <div class="row bg-white">
-                                                    <div class="col-md-3 pl-0">
-                                                        <img src=<?php echo $row['kits_product_img']; ?> alt="Image1" class="img-fluid">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h5 class="pt-2"><?php echo $row['kits_product_name']; ?></h5>
-                                                        <small class="text-secondary">Seller: dailytuition</small>
-                                                        <h5 class="pt-2">$<?php echo $row['kits_product_price']; ?></h5>
-                                                        <button type="submit" class="btn btn-danger mx-2" name="remove">Remove</button>
-                                                    </div>
-                                                    <div class="col-md-3 py-5">
-                                                        <div>
+                                        <div class="border rounded">
+                                            <div class="row bg-white">
+                                                <div class="col-md-3 pl-0">
+                                                    <table>
+                                                        <tr>
+                                                            <th>Foto zboží</th>
+                                                            <th>popis zboží</th>
+                                                            <th>Počet kusů</th>
+                                                            <th>Cena</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><img src=<?php echo $row['kits_product_img']; ?> alt="Image1" class="img-fluid"></td>
+                                                            <td>
+                                                                <h5 class="pt-2"><?php echo $row['kits_product_name']; ?></h5>
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" min="1" value="1" class="form-control w-25 d-inline" onchange="updateInput(value)">
+                                                            </td>
+                                                            <td>
                                                             <input type="number" min="1" value="1" class="form-control w-25 d-inline" onchange="updateInput(value)">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <form action="cart.php?action=remove&id=<?php echo $row['kits_product_id']; ?>" method="post" class="cart-items">
+
+
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <h5 class="pt-2">$<?php echo $row['kits_product_price']; ?></h5>
+                                                    <button type="submit" class="btn btn-danger mx-2" name="remove">Remove</button>
+                                                </div>
+                                                <div class="col-md-3 py-5">
+                                                    <div>
+                                                        <label>Počet kusu</label>
+                                                        <div>
+                                                            <label>Celková cena zboží </label>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-3 py-5">
+
+                                                </div>
                                             </div>
+                                        </div>
                                         </form>
                     <?php
                                         $total = $total + (int)$row['kits_product_price'];
@@ -133,14 +159,16 @@ if (isset($_POST['remove'])) {
                         </div>
                     </div>
                     <?php if (isset($_COOKIE['login'])) {
-                        if ($count > 0) {
+                        if (isset($_SESSION['cart'])) {
+                            if ($count > 0) {
                     ?> <button onclick="location.href='cart2.php'"><?php echo $lang['koupit']; ?></button><?php
                                                                                                         } else {
                                                                                                             ?> <button onclick="location.href='produkty.php'">Není vybrano zbozi</button><?php
                                                                                                                                                                                         }
                                                                                                                                                                                     } else {
                                                                                                                                                                                             ?> <a href="login.php" class="nav-item nav-link "><?php echo $lang['login']; ?></a> <?php
-                                                                                                                                                                                                                                                                            } ?>
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                        } ?>
                 </div>
             </div>
             <div id="test"></div>

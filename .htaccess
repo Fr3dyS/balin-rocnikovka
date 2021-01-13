@@ -1,8 +1,3 @@
-Options +FollowSymLinks
 RewriteEngine On
 
-RewriteBase /
-
-RewriteRule ^([aA-zZ])$ index.php?siteName=$1
-RewriteCond %{HTTP_HOST} ^(^.*)\.yourwebsite.com
-RewriteRule (.*) index.php?siteName=%1
+ErrorDocument 404 /balin-rocnikovka/error.php

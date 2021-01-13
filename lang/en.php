@@ -15,6 +15,7 @@ $lang = array(
     "fullName" => "Jméno a příjmení (název firmy)",
     "ulice" => "ulice",
     "Mesto" => "Město",
+    "republika" => "republika",
     "PSC" => "Poštovní směrovací číslo",
     "fakturacniUdaje" => "Fakturační údaje",
     "Phone" => "Phone",

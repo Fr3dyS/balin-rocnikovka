@@ -1,130 +1,136 @@
-<?php include('config/configLang.php');
-include('config/config.php');
+</html>
+<?php
+//test_class.php  
+include 'CRUD.php';
+$data = new CRUD;
+$success_message = '';
+if (isset($_POST["submit"])) {
+    $insert_data = array(
+        'post_title'     =>     mysqli_real_escape_string($data->con, $_POST['post_title']),
+        'post_desc'          =>     mysqli_real_escape_string($data->con, $_POST['post_desc'])
+    );
+    if ($data->insert('tbl_posts', $insert_data)) {
+        $success_message = 'Post Inserted';
+    }
+}
+if (isset($_POST["edit"])) {
+    $update_data = array(
+        'post_title'     =>     mysqli_real_escape_string($data->con, $_POST['post_title']),
+        'post_desc'          =>     mysqli_real_escape_string($data->con, $_POST['post_desc'])
+    );
+    $where_condition = array(
+        'post_id'     =>     $_POST["post_id"]
+    );
+    if ($data->update("tbl_posts", $update_data, $where_condition)) {
+        header("location:test.php?updated=1");
+    }
+}
+if (isset($_GET["updated"])) {
+    $success_message = 'Post Updated';
+}
+if (isset($_GET["delete"])) {
+    $where = array(
+        'post_id'     =>     $_GET["post_id"]
+    );
+    if ($data->delete("tbl_posts", $where)) {
+        header("location:test.php?deleted=1");
+    }
+}
+if (isset($_GET["deleted"])) {
+    $success_message = 'Post Deleted';
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title><?php echo $lang['title']; ?></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
+    <title>Webslesson Tutorial | Delete Data from Mysql Table using OOPS in PHP</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 
 <body>
-    <?php include('doplnky/header.php');
-    ?>
-    <h1>Účty</h1>
-    <table>
-        <tr>
-            <th>account id</th>
-            <th>account name</th>
-            <th>account password</th>
-            <th>account mail</th>
-            <th>account rank</th>
-            <th>account datum registrace</th>
-            <th>account phone</th>
-            <th>ulice</th>
-            <th>mesto</th>
-            <th>psc</th>
-            <th>ip</th>
-            <th>UPDATE</th>
-            <th>DELETE</th>
-        </tr>
-        <tr>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-            <th><input type="text" name="" id=""></th>
-        </tr>
-        <?php
-        $stmt = $db->prepare("SELECT * FROM `accounts`");
-        $stmt->execute();
-        $datas = $stmt->fetchAll();
-        ?>
-        <?php foreach ($datas as $data) {    ?>
-            <tr>
-                <td><?php echo $data['account_id']; ?></td>
-                <td><?php echo $data['account_name']; ?></td>
-                <td><?php echo $data['account_password']; ?></td>
-                <td><?php echo $data['account_mail']; ?></td>
-                <td><?php echo $data['account_rank']; ?></td>
-                <td><?php echo $data['account_reg_date']; ?></td>
-                <td><?php echo $data['account_phone']; ?></td>
-                <td><?php echo $data['account_ulice']; ?></td>
-                <td><?php echo $data['account_mesto']; ?></td>
-                <td><?php echo $data['account_psc']; ?></td>
-                <td><?php echo $data['account_ip']; ?></td>
-                <td>
-                    <a href="accounts/delete.php?id=<?php echo $data['account_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
-                </td>
-                <td>
-                    <a href="update.php?id=<?php echo $data['account_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
-                </td>
-            </tr>
-            <div class="container">
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><?php echo $data['account_id']; ?></h4>
-                            </div>
-                            <div class="modal-body">
-                                <div><?php echo $data['account_name']; ?></div>
-                                <div><?php echo $data['account_password']; ?></div>
-                                <div><?php echo $data['account_mail']; ?></div>
-                                <div><?php echo $data['account_rank']; ?></div>
-                                <div><?php echo $data['account_reg_date']; ?></div>
-                                <div><?php echo $data['account_phone']; ?></div>
-                                <div><?php echo $data['account_ulice']; ?></div>
-                                <div><?php echo $data['account_mesto']; ?></div>
-                                <div><?php echo $data['account_psc']; ?></div>
-                                <div><?php echo $data['account_ip']; ?></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            <?php } ?>
-    </table>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <br /><br />
+    <div class="container" style="width:700px;">
+        <form method="post">
+            <?php
+            if (isset($_GET["edit"])) {
+                if (isset($_GET["post_id"])) {
+                    $where = array(
+                        'post_id'     =>     $_GET["post_id"]
+                    );
+                    $single_data = $data->select_where("tbl_posts", $where);
+                    foreach ($single_data as $post) {
+            ?>
+                        <label>Post Title</label>
+                        <input type="text" name="post_title" value="<?php echo $post["post_title"]; ?>" class="form-control" />
+                        <br />
+                        <label>Post Description</label>
+                        <textarea name="post_desc" class="form-control"><?php echo $post["post_desc"]; ?></textarea>
+                        <br />
+                        <input type="hidden" name="post_id" value="<?php echo $post["post_id"]; ?>" />
+                        <input type="submit" name="edit" class="btn btn-info" value="Edit" />
+                <?php
+                    }
+                }
+            } else {
+                ?>
+                <label>Post Title</label>
+                <input type="text" name="post_title" class="form-control" />
+                <br />
+                <label>Post Description</label>
+                <textarea name="post_desc" class="form-control"></textarea>
+                <br />
+                <input type="submit" name="submit" class="btn btn-info" value="Submit" />
+            <?php
+            }
+            ?>
+            <span class="text-success">
+                <?php
+                if (isset($success_message)) {
+                    echo $success_message;
+                }
+                ?>
+            </span>
+        </form>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <td width="30%">Post Name</td>
+                    <td width="50">Post Description</td>
+                    <td width="10%">Edit</td>
+                    <td width="10%">Delete</td>
+                </tr>
+                <?php
+                $post_data = $data->select('tbl_posts');
+                foreach ($post_data as $post) {
+                ?>
+                    <tr>
+                        <td><?php echo $post["post_title"]; ?></td>
+                        <td><?php echo substr($post["post_desc"], 0, 200); ?></td>
+                        <td><a href="test.php?edit=1&post_id=<?php echo $post["post_id"]; ?>">Edit</a></td>
+                        <td><a href="#" id="<?php echo $post["post_id"]; ?>" class="delete">Delete</a></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('.delete').click(function() {
+            var post_id = $(this).attr("id");
+            if (confirm("Are you sure you want to delete this post?")) {
+                window.location = "test.php?delete=1&post_id=" + post_id + "";
+            } else {
+                return false;
+            }
+        });
+    });
+</script>

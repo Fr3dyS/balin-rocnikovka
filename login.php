@@ -3,35 +3,33 @@ include('config/lang.php');
 
 require 'config/configDB.php';
 
-if (isset($_COOKIE["login"]))    //check condition user login not direct back to index.php page
-{
-    header("location: index.php");
-}
-
-if (isset($_REQUEST['btn_login']))    //button name is "btn_login" 
-{
-    $username    = strip_tags($_REQUEST["txt_username_email"]);    //textbox name "txt_username_email"
-    $email        = strip_tags($_REQUEST["txt_username_email"]);    //textbox name "txt_username_email"
-    $password    = strip_tags($_REQUEST["txt_password"]);            //textbox name "txt_password"
+if (isset($_REQUEST['btn_login'])) {
+    $username    = strip_tags($_REQUEST["txt_username_email"]);
+    $email        = strip_tags($_REQUEST["txt_username_email"]);
+    $password    = strip_tags($_REQUEST["txt_password"]);
 
     if (empty($username)) {
-        $errorMsg[] = "please enter username or email";    //check "username/email" textbox not empty 
+        $errorMsg[] = "please enter username or email";
     } else if (empty($email)) {
-        $errorMsg[] = "please enter username or email";    //check "username/email" textbox not empty 
+        $errorMsg[] = "please enter username or email";
     } else if (empty($password)) {
-        $errorMsg[] = "please enter password";    //check "passowrd" textbox not empty 
+        $errorMsg[] = "please enter password";
     } else {
         try {
-            $select_stmt = $db->prepare("SELECT * FROM accounts WHERE account_mail=:email"); //sql select query
+            $select_stmt = $db->prepare("SELECT * FROM accounts WHERE account_mail=:email");
             $select_stmt->execute(array(':email' => $email));
             $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($select_stmt->rowCount() > 0) {
                 if ($email == $row["account_mail"]) {
                     if (password_verify($password, $row["account_password"])) {
-                        setcookie("login", $row["account_id"], time() + 3600);
+                        if ($_POST["rememberme"] == '1' || $_POST["rememberme"] == 'on') {
+                            $hour = time() + 3600 * 24 * 30;
+                            setcookie("login", $row["account_id"], $hour);
+                        } else {
+                            setcookie("login", $row["account_id"], time() + 3600);
+                        }
                         $loginMsg = $lang['LoginSuccessfully'];
-                        $_SESSION['rank'] = $row['account_rank'];
                         header("refresh:2; index.php");
                     } else {
                         $errorMsg[] = "wrong password";
