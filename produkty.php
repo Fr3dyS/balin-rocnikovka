@@ -82,7 +82,7 @@ if (isset($_POST['pridej'])) {
                                     <?php echo $data['kits_product_desc']; ?> <a href="produkty2.php?id=<?php echo $productid ?>">videt vice..</a>
                                 </p>
                                 <h5>
-                                    <span><?php echo $productprice; ?> kč</span>
+                                    <span><?php echo $productprice; ?> </span>
                                 </h5>
 
                                 <button type="submit" class="btn btn-warning my-3" name="pridej">Add to Cart <i class="fas fa-shopping-cart"></i></button>

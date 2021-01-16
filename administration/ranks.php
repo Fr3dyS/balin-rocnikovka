@@ -50,7 +50,6 @@ include('config/config.php');
             <th>rank name cs</th>
             <th>rank name en</th>
             <th>rank protected</th>
-            <th>delete</th>
             <th>update</th>
         </tr>
         <tr>
@@ -71,10 +70,7 @@ include('config/config.php');
                 <td><?php echo $data['rank_name_cs']; ?></td>
                 <td><?php echo $data['rank_protected']; ?></td>
                 <td>
-                    <button id="buttonUpdate" onclick="update($data['account_id'])">Update</button>
-                </td>
-                <td>
-                    <button onclick="mazani()">Delete</button>
+                    <a href="classes/updateRANK.php?id=<?php echo $data['rank_id']; ?>">Update</a>
                 </td>
             </tr>
         <?php } ?>

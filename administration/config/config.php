@@ -7,6 +7,7 @@ define('DB', 'kits');
 
 
 $con = mysqli_connect(HOST, USER, PASS, DB) or die('Unable to Connect');
+
 $db_host = "localhost";
 $db_user = "root";
 $db_password = "klobasakecup";

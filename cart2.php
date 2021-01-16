@@ -16,11 +16,16 @@ if (!$_SESSION['doprava'] > 0) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title><?php echo $lang['title']; ?></title>
+    <style>
+        #test{
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
     <?php
-    $pomoc = $_COOKIE['login']; 
+    $pomoc = $_COOKIE['login'];
     $stmt = $db->prepare("SELECT * FROM `accounts` WHERE `account_id`= $pomoc");
     $stmt->execute();
     $datas = $stmt->fetchAll();

@@ -66,6 +66,7 @@ if (isset($_REQUEST['btn_register'])) {
                 ))) {
 
                     $registerMsg = $lang['RegistrationSuccessfully'];
+                    header("refresh:2; login.php");
                 }
             }
         } catch (PDOException $e) {

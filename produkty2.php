@@ -1,6 +1,7 @@
 <?php
 include('config/lang.php');
 require_once('config/configDB.php');
+
 $_SESSION['id'] = $_GET['id'];
 
 if (isset($_POST['add'])) {
@@ -44,7 +45,7 @@ if (isset($_POST['add'])) {
 <body>
     <?php include('pohledy/doplnky/header.php'); ?>
     <form method="POST" action="produkty2.php">
-    
+
         <?php
         $stmt = $db->prepare("SELECT * FROM `kits_products` WHERE `kits_product_id` = '{$_SESSION['id']}'");
         $stmt->execute();
@@ -56,7 +57,7 @@ if (isset($_POST['add'])) {
                                 } else { ?>
                 <h5>Vyprodano</h5>
             <?php } ?>
-            <h2>podnadpis: <?php echo $data['kits_product_desc']; ?></h2>
+            <h2><?php echo $data['desc_full']; ?></h2>
             <h2>cena: <?php echo $data['kits_product_price']; ?> Kč</h2>
             <?php $img = $data['kits_product_img'];
             echo "<img src='administration/$img' height='50%' width='50%'>"; ?>

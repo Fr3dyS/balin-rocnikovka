@@ -39,7 +39,7 @@ include('config/config.php');
     <?php include('doplnky/header.php');
     ?>
     <h1>Značka</h1>
-    <a href="createProdukt.php">Vytvořit produkt</a>
+    <a href="classes/createZnacka.php">Vytvořit produkt</a>
 
     <table>
         <tr>
@@ -48,7 +48,6 @@ include('config/config.php');
             <th>Odebrat</th>
             <th>Upravit</th>
         </tr>
-
         <?php
         $stmt = $db->prepare("SELECT * FROM `kits_brands`");
         $stmt->execute();
@@ -59,10 +58,10 @@ include('config/config.php');
                 <td><?php echo $data['kits_brand_id']; ?></td>
                 <td><?php echo $data['kits_brand_title']; ?></td>
                 <td>
-                    <a href="produkty/delete.php?id=<?php echo $data['kits_brand_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
+                    <a href="classes/znackaDelete.php?id=<?php echo $data['kits_brand_id']; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
                 </td>
                 <td>
-                    <a href="produkty/update.php?id=<?php echo $data['kits_brand_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
+                    <a href="classes/upravitZnacka.php?id=<?php echo $data['kits_brand_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
                 </td>
             </tr>
         <?php } ?>

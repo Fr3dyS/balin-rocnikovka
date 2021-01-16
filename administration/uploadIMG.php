@@ -1,15 +1,12 @@
 <?php
 
-//importing dbDetails file 
 require_once 'config/dbconfig.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    //checking the required parameters from the request 
     if (isset($_FILES['image']['name'])) {
 
 
-        //getting file info from the request 
         $fileinfo = pathinfo($_FILES['image']['name']);
 
 
@@ -23,12 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        //getting the file extension 
         $extension = $fileinfo['extension'];
 
 
         if (($extension != "jpg") && ($extension != "jpeg") && ($extension != "png") && ($extension != "gif")) {
-            echo 'Unknown image format.';
+            echo 'Spatny format.';
         }
 
         //jpg-jpeg     

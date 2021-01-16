@@ -5,10 +5,10 @@ function component($productname, $productprice, $productimg, $productid)
     $element = "
     
     <div class=\"col-md-3 col-sm-6 my-3 my-md-0\">
-                <form action=\"produkty.php\" method=\"post\">
+                <form action=\"index.php\" method=\"post\">
                     <div class=\"card shadow\">
                         <div>
-                            <img src=..\administration\tmp\images\"unknown.png\" alt=\"Image1\" class=\"img-fluid card-img-top\">
+                            <img src=\"$productimg\" alt=\"Image1\" class=\"img-fluid card-img-top\">
                         </div>
                         <div class=\"card-body\">
                             <h5 class=\"card-title\">$productname</h5>
@@ -36,6 +36,7 @@ function component($productname, $productprice, $productimg, $productid)
     ";
     echo $element;
 }
+
 
 function cartElement($productimg, $productname, $productprice, $productid)
 {
@@ -115,7 +116,7 @@ function cart3($name, $email)
         </div>
         <div>
             <h1>Fakturační udaje</h1>
-            <button>CHANGE</button>
+            <button onclick=\"myFunction()\">CHANGE</button>
         </div>
     </div>
     ";
@@ -124,7 +125,7 @@ function cart3($name, $email)
 function changeCart3($jmeno, $email, $phone, $republika, $ulice, $mesto, $psc)
 {
     $element = "
-<form method=\"POST\">
+<form method=\"POST\" id=\"test\">
     <div class=\"form-group row\">
         <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Jméno a Příjmení</label>
         <div class=\"col-sm-10\">
@@ -177,5 +178,14 @@ function changeCart3($jmeno, $email, $phone, $republika, $ulice, $mesto, $psc)
 <script>
     function updateInput(ish) {
         document.getElementById("test").value = ish;
+    }
+
+    function myFunction() {
+        var x = document.getElementById("test");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
     }
 </script>

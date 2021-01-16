@@ -82,66 +82,6 @@ include('config/config.php');
         <?php } ?>
     </table>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
-
-    <form method="POST" action="uploadIMG.php" id="form" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Product id:</label>
-            <input type="text" class="form-control" name="id" id="recipient-name" placeholder="Auto increment" readonly>
-        </div>
-        <div class="form-group">
-            <?php
-            $stmt = $db->prepare("SELECT * FROM `kits_category`");
-            $stmt->execute();
-            $datas = $stmt->fetchAll(); ?>
-            <label for="recipient-name" class="col-form-label">category id:</label>
-            <select name="category" id="">
-                <?php foreach ($datas as $data) { ?>
-                    <option value="<?php echo $data['category_id']; ?>"><?php echo $data['category_title']; ?></option>
-                <?php  } ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <?php
-            $stmt = $db->prepare("SELECT * FROM `kits_brands`");
-            $stmt->execute();
-            $datas = $stmt->fetchAll();
-            ?>
-            <label for="recipient-name" class="col-form-label">brand id:</label>
-            <select name="brand" id="">
-                <?php foreach ($datas as $data) { ?>
-                    <option value="<?php echo $data['kits_brand_id']; ?>"><?php echo $data['kits_brand_title']; ?></option>
-                <?php  } ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product date:</label>
-            <input type="date" class="form-control" name="date" id="recipient-name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product name:</label>
-            <input type="text" class="form-control" name="name" id="recipient-name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product desc:</label>
-            <input type="text" class="form-control" name="desc" id="recipient-name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product price:</label>
-            <input type="text" class="form-control" name="price" id="recipient-name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product status:</label>
-            <input type="text" class="form-control" name="status" id="recipient-name">
-        </div>
-        <div class="form-group">
-            <label for="recipient-name" class="col-form-label">product img:</label>
-            <input type="file" name="image" />
-        </div>
-        <div class="form-group">
-            <input type="submit" name="submit">
-        </div>
-    </form>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

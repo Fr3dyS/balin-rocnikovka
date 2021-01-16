@@ -40,7 +40,8 @@ include('config/config.php');
     <?php include('doplnky/header.php');
     ?>
     <h1>Kategorie</h1>
-    <a href="#">Vytvořit produkt</a>
+
+    <a href="classes/kategorieCR.php">Vytvořit produkt</a>
 
     <table>
         <tr>
@@ -60,32 +61,14 @@ include('config/config.php');
                 <td><?php echo $data['category_id']; ?></td>
                 <td><?php echo $data['category_title']; ?></td>
                 <td>
-                    <a href="produkty/delete.php?id=<?php echo $data['category_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
+                    <a href="classes/kategorieDE.php?id=<?php echo $data['category_id']; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times" aria-hidden="true"></i>Delete</a>
                 </td>
                 <td>
-                    <a href="produkty/update.php?id=<?php echo $data['category_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
+                    <a href="classes/kategorieUP.php?id=<?php echo $data['category_id']; ?>"><i class="fa fa-times" aria-hidden="true"></i>Update</a>
                 </td>
             </tr>
         <?php } ?>
     </table>
-    <form action="" method="POST">
-        <div>
-            <label>category id</label>
-            <input type="number" name="id" placeholder="AUTO INCREMENT" disabled>
-        </div>
-        <div>
-            <label>category title</label>
-            <input type="text" name="title">
-        </div>
-        <div>
-            <button type="submit" name="category">Vytvořit Kategorii</button>
-        </div>
-    </form>
-    <?php
-    if (isset($_POST['category'])) {
-        insert($category, $_POST['title']);
-    }
-    ?>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

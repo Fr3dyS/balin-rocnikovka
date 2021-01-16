@@ -38,6 +38,15 @@
             </div>
             <div class="btn-group dropright">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Chat
+                </button>
+                <div class="dropdown-menu">
+                    <div><a href="znacka.php">Stížnost</a></div>
+                    <div><a href="kategorie.php">Dotaz</a></div>
+                </div>
+            </div>
+            <div class="btn-group dropright">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Zpět
                 </button>
                 <div class="dropdown-menu">
@@ -47,4 +56,3 @@
         </ul>
     </div>
 </nav>
-
