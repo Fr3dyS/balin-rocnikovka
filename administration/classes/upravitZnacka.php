@@ -1,5 +1,8 @@
 <?php
 require_once('../config/config.php');
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 
 
 $id = $_GET['id'];
@@ -44,7 +47,7 @@ foreach ($datas as $data) {
         </div>
         <div>
             <label>title </label>
-            <input type="datetime" name="title" value="<?php echo $data['kits_brand_title']; ?>" >
+            <input type="datetime" name="title" value="<?php echo $data['kits_brand_title']; ?>">
         </div>
         <button type="submit" class="btn btn-primary" name="update">Update značky</button>
     <?php } ?>

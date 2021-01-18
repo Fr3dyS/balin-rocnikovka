@@ -1,6 +1,9 @@
 <?php
 include('CRUD.php');
 include('config/config.php');
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

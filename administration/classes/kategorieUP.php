@@ -1,5 +1,8 @@
 <?php
 require_once('../config/config.php');
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 
 
 $id = $_GET['id'];

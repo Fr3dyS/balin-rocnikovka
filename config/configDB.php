@@ -1,8 +1,8 @@
 <?php
-$db_host="localhost"; //localhost server 
-$db_user="root";	//database username
-$db_password="klobasakecup";	//database password   
-$db_name="kits";	//database name
+$db_host="localhost"; 
+$db_user="root";	
+$db_password="klobasakecup";	
+$db_name="kits";
 
 try
 {

@@ -1,5 +1,8 @@
 <?php include('config/configLang.php');
 include('config/config.php');
+if (!isset($_COOKIE['login'])  || $_COOKIE['login'] < 1) {
+    header('Location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

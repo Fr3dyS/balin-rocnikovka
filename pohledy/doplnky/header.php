@@ -4,6 +4,14 @@
         color: white;
     }
 </style>
+<?php
+global $cart_data;
+
+if (isset($_SESSION['product_cart']) && !empty($_SESSION['product_cart'])) {
+    $cart_data = $_SESSION['product_cart'];
+}
+
+?>
 <script>
     function changeLang() {
         document.getElementById('form_lang').submit();
@@ -19,6 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <?php
             require_once 'config/configDB.php';
+
 
             if (isset($_COOKIE["login"])) {
 
@@ -41,16 +50,7 @@
                     <a href="cart.php" class="nav-item nav-link active">
                         <h5 class="px-5 cart">
                             <i class="fas fa-shopping-cart"></i> <?php echo $lang['Cart'];  ?>
-                            <?php
-
-                            if (isset($_SESSION['cart'])) {
-                                $count = count($_SESSION['cart']);
-                                echo "<span id=\"cart_count\" class=\"text-warning\">$count</span>";
-                            } else {
-                                echo "<span id=\"cart_count\" class=\"text-warningt\">0</span>";
-                            }
-
-                            ?>
+                            <span class="badge badge-danger"><?php echo @count($cart_data); ?></span>
                         </h5>
                     </a>
                 </div>
@@ -68,7 +68,7 @@
                             <a class="dropdown-item" href="account.php"><?php echo $lang['account']; ?></a>
                             <?php if ($row['account_rank'] == 3) {
                             ?> <a class="dropdown-item" href="administration/index.php"><?php echo $lang['administrativa']; ?></a><?php
-                                                                                                                                    } ?>
+                                                                                                                                } ?>
                             <a class="dropdown-item" href="logout.php"><?php echo $lang['logout']; ?></a>
 
                         </div>

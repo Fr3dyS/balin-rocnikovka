@@ -1,5 +1,8 @@
 <?php
 require_once('../config/config.php');
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +18,7 @@ require_once('../config/config.php');
     if (isset($_REQUEST['btn_register'])) {
         $title        = strip_tags($_REQUEST['title']);
         try {
-          if (!isset($errorMsg)) {
+            if (!isset($errorMsg)) {
                 $insert_stmt = $db->prepare("INSERT INTO kits_brands (kits_brand_title) VALUES
                 (:title)");
 

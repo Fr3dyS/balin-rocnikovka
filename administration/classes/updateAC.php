@@ -1,5 +1,8 @@
 <?php
 require_once('../config/config.php');
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 
 
 $id = $_GET['id'];
@@ -43,11 +46,6 @@ if (isset($_POST['update'])) {
     }
 }
 
-###########################################################################
-##################--------------############------------###################
-####################################----###################################
-###########################################################################
-#############-----------------------------------------------###############
 $stmt = $db->prepare("SELECT * FROM `accounts` WHERE `account_id` = $id");
 $stmt->execute();
 $datas = $stmt->fetchAll();
@@ -64,7 +62,7 @@ foreach ($datas as $data) {
     <?php
         }
     } ?>
-    <form method="post">
+    <form method="post" id="form">
         <div>
             <label>ID: </label>
             <input type="text" name="id" value="<?php echo $data['account_id']; ?>" disabled>
@@ -119,3 +117,43 @@ foreach ($datas as $data) {
         <button type="submit" class="btn btn-primary" name="update">Update uživatele</button>
     <?php } ?>
     </form>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        $("#form").validate({
+            rules: {
+                id: {
+                    required: true,
+                },
+                datetime: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                },
+                telefon: {
+                    required: true,
+                },
+                rank: {
+                    required: true,
+                },
+                fullname: {
+                    required: true,
+                },
+                republika: {
+                    required: true,
+                },
+                ulice: {
+                    required: true,
+                },
+                mesto: {
+                    required: true,
+                },
+                psc: {
+                    required: true,
+                }
+
+            }
+        });
+    </script>

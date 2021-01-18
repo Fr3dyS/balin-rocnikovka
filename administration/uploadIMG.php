@@ -1,5 +1,7 @@
 <?php
-
+if (!isset($_COOKIE['login'])) {
+    header('Location: ../index.php');
+}
 require_once 'config/dbconfig.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
